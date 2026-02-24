@@ -106,7 +106,7 @@ cp target/release/kaku ~/.local/bin/
 
 # 5. 复制资源文件
 mkdir -p ~/.local/share/kaku
-cp assets/shell-integration/setup_zsh.sh ~/.local/share/kaku/
+cp assets/shell-integration/*.sh ~/.local/share/kaku/
 cp -r assets/vendor ~/.local/share/kaku/
 # 复制 Linux 配置文件（可选，作为默认配置）
 cp assets/linux/kaku.lua ~/.local/share/kaku/
@@ -153,7 +153,7 @@ sudo cp target/release/kaku /usr/local/bin/
 sudo mkdir -p /usr/local/share/kaku
 
 # 复制 shell 集成脚本和资源
-sudo cp assets/shell-integration/setup_zsh.sh /usr/local/share/kaku/
+sudo cp assets/shell-integration/*.sh /usr/local/share/kaku/
 sudo cp -r assets/vendor /usr/local/share/kaku/
 ```
 

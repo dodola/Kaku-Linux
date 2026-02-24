@@ -35,12 +35,13 @@ cd Kaku
 bash scripts/download_vendor.sh
 
 # 4. 编译
-cargo build --release -p kaku
+cargo build --release -p kaku -p kaku-gui
 
 # 5. 安装
 mkdir -p ~/.local/bin ~/.local/share/kaku
-cp target/release/kaku ~/.local/bin/
-cp assets/shell-integration/setup_zsh.sh ~/.local/share/kaku/
+rm -f ~/.local/bin/kaku ~/.local/bin/kaku-gui
+cp target/release/kaku target/release/kaku-gui ~/.local/bin/
+cp assets/shell-integration/*.sh ~/.local/share/kaku/
 cp -r assets/vendor ~/.local/share/kaku/
 cp assets/linux/kaku.lua ~/.local/share/kaku/
 
