@@ -67,8 +67,7 @@ mod imp {
             })?;
         }
 
-        let preferred_bin = resolve_preferred_kaku_bin()
-            .unwrap_or_else(|| get_default_kaku_path());
+        let preferred_bin = resolve_preferred_kaku_bin().unwrap_or_else(|| get_default_kaku_path());
         let preferred_bin = escape_for_double_quotes(&preferred_bin.display().to_string());
 
         let script = generate_wrapper_script(&preferred_bin);
@@ -204,7 +203,6 @@ echo "kaku: kaku binary not found. Please ensure kaku is installed." >&2
 exit 127
 "#
         )
->>>>>>> 6e648aa (feat: Add initial Linux support with WezTerm configuration, keybindings, and documentation.)
     }
 
     fn escape_for_double_quotes(value: &str) -> String {
@@ -258,10 +256,16 @@ exit 127
                     }
                 }
             }
-            
+
             candidates.push(PathBuf::from("/usr/share/kaku/setup_zsh.sh"));
             candidates.push(PathBuf::from("/usr/local/share/kaku/setup_zsh.sh"));
-            candidates.push(config::HOME_DIR.join(".local").join("share").join("kaku").join("setup_zsh.sh"));
+            candidates.push(
+                config::HOME_DIR
+                    .join(".local")
+                    .join("share")
+                    .join("kaku")
+                    .join("setup_zsh.sh"),
+            );
         }
 
         candidates.into_iter().find(|p| p.exists())
