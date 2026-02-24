@@ -394,6 +394,14 @@ impl WindowOps for Window {
         }
     }
 
+    fn get_clipboard_data(&self, clipboard: Clipboard) -> Future<crate::ClipboardData> {
+        match self {
+            Self::X11(x) => x.get_clipboard_data(clipboard),
+            #[cfg(feature = "wayland")]
+            Self::Wayland(w) => w.get_clipboard_data(clipboard),
+        }
+    }
+
     fn get_clipboard(&self, clipboard: Clipboard) -> Future<String> {
         match self {
             Self::X11(x) => x.get_clipboard(clipboard),

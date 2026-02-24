@@ -185,6 +185,7 @@ pub fn start_update_checker() {
     {
         // Initialize the notification system early so macOS shows the permission
         // dialog on first launch, rather than lazily when a notification fires.
+        #[cfg(target_os = "macos")]
         wezterm_toast_notification::macos_initialize();
         std::thread::Builder::new()
             .name("update_checker".into())

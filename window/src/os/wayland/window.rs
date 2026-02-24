@@ -442,6 +442,22 @@ impl WindowOps for WaylandWindow {
         });
     }
 
+    fn get_clipboard_data(&self, clipboard: Clipboard) -> Future<crate::ClipboardData> {
+        let mut promise = Promise::new();
+        let future_out = promise.get_future().unwrap();
+        let promise = std::sync::Arc::new(std::sync::Mutex::new(promise));
+        let string_future = self.get_clipboard(clipboard);
+        promise::spawn::spawn_into_main_thread(async move {
+            let res = string_future.await;
+            match res {
+                Ok(text) => { promise.lock().unwrap().ok(crate::ClipboardData::Text(text)); },
+                Err(e) => { promise.lock().unwrap().err(e); },
+            }
+        }).detach();
+        future_out
+    }
+
+>>>>>>> 3966326 (fix: resolve Linux build errors after merging main)
     fn get_clipboard(&self, clipboard: Clipboard) -> Future<String> {
         let mut promise = Promise::new();
         let future = promise.get_future().unwrap();
